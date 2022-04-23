@@ -1,0 +1,30 @@
+﻿@page "/"
+@using TodoApp.Permissions
+@attribute [Authorize(TodoAppPermissions.ManageTodoItems)]
+@inherits TodoAppComponentBase
+<div class="container">
+    <Card>
+        <CardHeader>
+            <CardTitle>Todo App Demo</CardTitle>
+        </CardHeader>
+        <CardBody>
+            <form id="NewItemForm"
+            @onsubmit:preventDefault
+            @onsubmit="() => Create()"
+            class="form-inline">
+            <input type="text" @bind-value="NewTodoText" class="form-control" placeholder="Pls enter text">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <ul id="TodoList">
+            @foreach (var todoItem in TodoItems)
+            {
+                <li data-id="@todoItem.Id">
+                    <i class="far fa-trash-alt" onclick="() => Delete(todoitem)"></i>@todoItem.Text
+                </li>
+            }
+        </ul>
+
+        </CardBody>
+    </Card>
+</div>
